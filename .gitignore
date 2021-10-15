@@ -1,0 +1,5 @@
+/target
+!/.idea/
+/.idea/.gitignore
+/.idea/codeStyles/Project.xml
+/.idea/runConfigurations.xml
