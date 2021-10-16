@@ -9,7 +9,7 @@ fn panic(_info: &PanicInfo) -> ! {
     loop {}
 }
 
-static TEST: &[u8] = b"Hey what are looking at?";
+static TEST: &[u8] = b"Hey what are you looking at?";
 
 #[no_mangle]
 pub extern "C" fn _start() -> ! {
