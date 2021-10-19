@@ -5,6 +5,7 @@
 #![reexport_test_harness_main = "test_main"]
 
 mod vga_buffer;
+mod serial;
 
 use core::panic::PanicInfo;
 
@@ -38,4 +39,22 @@ fn trivial_assertion() {
     print!("Testing");
     assert_eq!(20, 30 - 5 + 5 - 10);
     println!("[OK]");
+
+    exit(QemuExitCode::Success);
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[repr(u32)]
+pub enum QemuExitCode {
+    Success = 0x10,
+    Failed = 0x11,
+}
+
+pub fn exit(code: QemuExitCode)
+{
+    use x86_64::instructions::port::Port;
+    unsafe {
+        let mut port = Port::new(0xf4);
+        port.write(code as u32);
+    }
 }
